@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "Course to CSV Exporter",
+    "version": "1.0",
+
+    "description": "Gets and stores course offerings from MLS that can be exported to a CSV file.",
+
+    "homepage_url": "https://github.com/kaninRice/course-to-csv-exporter",
+    "icons": {
+        "48": "icons/icon-48.svg"
+    },
+
+    "permissions": ["activeTab"],
+
+    "browser_action": {
+        "default_icon": "icons/icon-32.svg",
+        "default_title": "Course to CSV Exporter",
+        "default_popup": "popup/index/html"
+    }
+}
