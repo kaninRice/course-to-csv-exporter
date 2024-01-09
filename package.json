@@ -1,0 +1,17 @@
+{
+    "name": "course-to-csv-exporter",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/kaninRice/course-to-csv-exporter.git",
+    "author": "skeeDayo <steven_escopete@dlsu.edu.ph>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/firefox-webext-browser": "^120.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.18.0",
+        "@typescript-eslint/parser": "^6.18.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "prettier": "^3.1.1",
+        "typescript": "^5.3.3"
+    }
+}

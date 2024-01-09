@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+:root {
+    --font-family: 'Inter', sans-serif;
+    --dp0-border-radius: 8px;
+    --dp0: #121212;
+    --dp1: #1e1e1e;
+    --dp2: #2b2b2b;
+    --sem-red: #8a0707;
+    --sem-green: #2d923d;
+    --sem-blue: #3297ae;
+    --body-width: 300px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: var(--body-width);
+}
+
+body {
+    color: white;
+    background-color: var(--dp0);
+
+    width: calc(var(--body-width) - calc(2 * var(--dp0-border-radius)));
+    padding: 8px;
+
+    font-size: 62.5%;
+    font-family: var(--font-family);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.header h1 {
+    font-size: 2rem;
+}
+
+.course-list-container {
+    background-color: var(--dp1);
+    width: 100%;
+    border-radius: var(--dp0-border-radius);
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+    line-height: 2rem;
+}
+
+li {
+    padding: var(--dp0-border-radius);
+
+    font-size: 1.2rem;
+    font-family: var(--font-family);
+}
+
+li:hover {
+    background-color: var(--dp2);
+}
+
+.buttons-container {
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons-container button {
+    color: white;
+
+    width: 32%;
+    padding: 4px;
+
+    font-size: 1.2rem;
+    font-family: var(--font-family);
+
+    border: none;
+    border-radius: var(--dp0-border-radius);
+}
+
+.add-btn {
+    background-color: var(--sem-blue);
+}
+
+.clear-btn {
+    background-color: var(--sem-red);
+}
+
+.export-btn {
+    background-color: var(--sem-green);
+}
