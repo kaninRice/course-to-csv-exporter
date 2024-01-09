@@ -147,11 +147,10 @@ async function exportCourseList() {
         const sectionList = Object.values(data)[0];
 
         sectionList.forEach((section: Section) => {
-            const row = 
-            `${section.class_number},${courseItem},${section.section}
-            ,${section.schedule?.day_first},${section.schedule?.time_first},${section.schedule?.room_first}
-            ,${section.schedule?.day_second || ''},${section?.schedule?.time_second || ''},${section.schedule?.room_second || ''}
-            ,${section.remarks || ''}`;
+            let row = `${section.class_number},${courseItem},${section.section},`
+            row += `${section.schedule?.day_first},${section.schedule?.time_first},${section.schedule?.room_first},`
+            row += `${section.schedule?.day_second || ''},${section?.schedule?.time_second || ''},${section.schedule?.room_second || ''},`
+            row += `${section.remarks || ''}`;
             csv += row + '\r\n';
         });
 
