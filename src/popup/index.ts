@@ -47,11 +47,12 @@ async function addSavedCourse() {
 }
 
 function updateListItemListeners() {
-    const courseListItems = document.querySelectorAll('course-item');
+    const courseListItems = document.querySelectorAll('.course-item');
 
     courseListItems.forEach((courseItem) => {
         courseItem.addEventListener('click', () => {
             sendMessage('removeCourse', `${courseItem.textContent}`)
+            console.log(`${courseItem.textContent}`);
         });
     })
 }

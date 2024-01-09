@@ -1,23 +1,23 @@
+interface Schedule {
+    day_first: string;
+    time_first: string;
+    room_first: string;
+    day_second?: string;
+    time_second?: string;
+    room_second?: string;
+}
+
+interface Section {
+    class_number: number;
+    section: string;
+    schedule?: Schedule;
+    remarks?: string;
+    prof?: string;
+}
+
 async function addCourse() {
     const table: HTMLTableElement | null = document.querySelector('form table');
     if (table?.children === undefined) return;
-
-    interface Schedule {
-        day_first: string;
-        time_first: string;
-        room_first: string;
-        day_second?: string;
-        time_second?: string;
-        room_second?: string;
-    }
-
-    interface Section {
-        class_number: number;
-        section: string;
-        schedule?: Schedule;
-        remarks?: string;
-        prof?: string;
-    }
 
     let courseName: string = '';
     const sectionArray = [];
@@ -111,7 +111,7 @@ async function addCourse() {
 
     // send message to popup to update course list
     browser.runtime.sendMessage({});
-};
+}
 
 async function removeCourse(target: string) {
     const { course_list } = await browser.storage.local.get('course_list');
@@ -129,15 +129,36 @@ async function removeCourse(target: string) {
     browser.storage.local.remove(`${target}`);
 
     return browser.runtime.sendMessage({});
-};
+}
 
 function clearCourseList() {
     browser.storage.local.clear();
     return browser.runtime.sendMessage({});
-};
+}
 
-function exportCourseList() {
-};
+async function exportCourseList() {
+    const { course_list } = await browser.storage.local.get('course_list');
+    let csv = 'data:text/csv;charset=utf-8,';
+    csv +=
+        'Class Number,Course,Section,Day 1, Time 1,Room 1,Day 2, Time 2, Room 2, Remarks,\r\n';
+
+    course_list.forEach(async (courseItem: string) => {
+        const data = await browser.storage.local.get(`${courseItem}`);
+        const sectionList = Object.values(data)[0];
+
+        sectionList.forEach((section: Section) => {
+            const row = 
+            `${section.class_number},${courseItem},${section.section}
+            ,${section.schedule?.day_first},${section.schedule?.time_first},${section.schedule?.room_first}
+            ,${section.schedule?.day_second || ''},${section?.schedule?.time_second || ''},${section.schedule?.room_second || ''}
+            ,${section.remarks || ''}`;
+            csv += row + '\r\n';
+        });
+
+        const encodedUri = encodeURI(csv);
+        window.open(encodedUri);
+    });
+}
 
 browser.runtime.onMessage.addListener((mes) => {
     switch (mes.message) {
@@ -146,7 +167,7 @@ browser.runtime.onMessage.addListener((mes) => {
             break;
         case 'removeCourse':
             if (!mes.target) return;
-            removeCourse(mes.target)
+            removeCourse(mes.target);
             break;
         case 'clearCourseList':
             clearCourseList();
