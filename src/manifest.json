@@ -10,7 +10,10 @@
         "48": "icons/icon-48.svg"
     },
 
-    "permissions": ["activeTab"],
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
 
     "browser_action": {
         "default_icon": "icons/icon-32.svg",

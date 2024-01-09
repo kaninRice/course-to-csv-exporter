@@ -9,6 +9,7 @@
     --sem-red: #8a0707;
     --sem-green: #2d923d;
     --sem-blue: #3297ae;
+    --body-width: 300px;
 }
 
 * {
@@ -16,14 +17,15 @@
     padding: 0;
 }
 
-html, body {
-    width: 300px;
+html {
+    width: var(--body-width);
 }
 
 body {
     color: white;
     background-color: var(--dp0);
 
+    width: calc(var(--body-width) - calc(2 * var(--dp0-border-radius)));
     padding: 8px;
 
     font-size: 62.5%;

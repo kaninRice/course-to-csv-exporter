@@ -1,7 +1,7 @@
-const courseList = document.querySelector('course-list');
-const addBtn = document.querySelector('add-btn');
-const clearBtn = document.querySelector('clear-btn');
-const exportBtn = document.querySelector('export-btn');
+const courseList = document.querySelector('.course-list');
+const addBtn = document.querySelector('.add-btn');
+const clearBtn = document.querySelector('.clear-btn');
+const exportBtn = document.querySelector('.export-btn');
 
 function initScript() {
     addSavedCourse();
@@ -12,8 +12,7 @@ async function sendMessage(action: string, target?: string) {
     const currentTab = await browser.tabs.query({ active: true, currentWindow: true });
 
     if (currentTab[0] == undefined || currentTab[0].id == undefined) return;
-
-    browser.tabs.sendMessage(currentTab[0].id, {
+    return browser.tabs.sendMessage(currentTab[0].id, {
         message: action,
         target: target || null
     });
@@ -29,7 +28,7 @@ function addBtnListener() {
     });
 
     exportBtn?.addEventListener('click', () => {
-        // TODO: export function
+        sendMessage('exportCourseList');
     });
 }
 
@@ -57,11 +56,15 @@ function updateListItemListeners() {
     })
 }
 
-function reportError(err: Error) {
+function logError(err: Error) {
     console.error(err.message);
-};
+}
+
+browser.runtime.onMessage.addListener(() => {
+    addSavedCourse();
+})
 
 browser.tabs
-    .executeScript({ file: 'exporter.js' })
+    .executeScript({ file: '/exporter.js' })
     .then(initScript)
-    .catch(reportError);
+    .catch(logError);
